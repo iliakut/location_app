@@ -24,6 +24,9 @@ yarn run test
 ```
 yarn run lint
 ```
-
+### To run Fake Server
+```
+yarn run fake
+```
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
