@@ -1,21 +1,27 @@
 import Vue from "vue";
 import Router from "vue-router";
-import localWeather from "./views/localWeather.vue";
-import cityWeather from "./views/cityWeather.vue";
+import currentLocation from "./views/currentLocation.vue";
+import citiesLocation from "./views/citiesLocation.vue";
+import about from "./views/about.vue";
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: "/",
-      name: "localWeather",
-      component: localWeather
+      path: "/currentLocation",
+      name: "currentLocation",
+      component: currentLocation
     },
     {
-      path: "/cityWeather",
-      name: "cityWeather",
-      component: cityWeather
+      path: "/citiesLocation",
+      name: "citiesLocation",
+      component: citiesLocation
+    },
+    {
+      path: "/",
+      name: "about",
+      component: about
     }
   ]
 });

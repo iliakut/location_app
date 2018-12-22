@@ -1,20 +1,23 @@
 <template>
   <div>
-    <button @click="getLocalPosition">Обновить локацию</button>
-    <button @click="getWeather">Обновить температуру</button>
-    <div>Текущая температура</div>
-    <div>Latitude: {{ latitude }}</div>
-    <div>Longitude: {{ longitude }}</div>
-    <div>Weather: {{ weather }}</div>
+    <h1>Current Location</h1>
+    <button @click="getLocationPostponded" class="buttonGreen buttonGreen1">
+      Update
+    </button>
+    <serverLoader v-if="latitude === 0"></serverLoader>
+    <div v-else>
+      <h3>Latitude: {{ latitude }}</h3>
+      <h3>Longitude: {{ longitude }}</h3>
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
-  name: "localWeather",
-  components: {},
+  name: "currentLocation",
+  components: {
+    serverLoader: () => import("@/components/serverLoader.vue")
+  },
   data: function() {
     return {
       optionsLocation: {
@@ -22,7 +25,7 @@ export default {
         timeout: 7000,
         maximumAge: 0
       },
-      weather: {},
+      cities: {},
       latitude: 0,
       longitude: 0
     };
@@ -45,14 +48,14 @@ export default {
         this.options
       );
     },
-    getWeather() {
-      axios
-        .get(
-          `https://api.darksky.net/forecast/71be0b2a7e5f034a07355a1a85166e75/${this.latitude}, ${this.longitude}, lang=ru`
-        )
-        .then(weather => (this.weather = weather))
-        .catch(error => console.log(error));
+    getLocationPostponded: function() {
+      this.latitude = 0;
+      this.longitude = 0;
+      setTimeout(this.getLocalPosition, 3000);
     }
+  },
+  created: function() {
+    this.getLocationPostponded();
   }
 };
 </script>
